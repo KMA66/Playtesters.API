@@ -51,4 +51,11 @@ testerGroup.MapPut("/{userName}", async (
 })
 .Produces<Result<UpdateTesterResponse>>();
 
+testerGroup.MapGet("/", async ([FromServices]GetTestersUseCase useCase) =>
+{
+    var response = await useCase.ExecuteAsync();
+    return response.ToHttpResult();
+})
+.Produces<ListedResult<GetTestersResponse>>();
+
 app.Run();

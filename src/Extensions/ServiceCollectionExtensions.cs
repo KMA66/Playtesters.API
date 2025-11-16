@@ -8,7 +8,8 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddScoped<CreateTesterUseCase>()
-            .AddScoped<UpdateTesterUseCase>();
+            .AddScoped<UpdateTesterUseCase>()
+            .AddScoped<GetTestersUseCase>();
 
         services
             .AddSingleton<CreateTesterValidator>()

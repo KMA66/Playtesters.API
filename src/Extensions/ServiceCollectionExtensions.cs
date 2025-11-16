@@ -6,8 +6,14 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddUseCases(this IServiceCollection services)
     {
-        services.AddScoped<CreateTesterUseCase>();
-        services.AddSingleton<CreateTesterValidator>();
+        services
+            .AddScoped<CreateTesterUseCase>()
+            .AddScoped<UpdateTesterUseCase>();
+
+        services
+            .AddSingleton<CreateTesterValidator>()
+            .AddSingleton<UpdateTesterValidator>();
+
         return services;
     }
 }

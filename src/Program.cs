@@ -27,13 +27,28 @@ if (app.Environment.IsDevelopment())
 app.UseRequestLocalization("en");
 app.UseHttpsRedirection();
 
-app.MapPost("/tester", async ([FromBody]CreateTesterRequest request, CreateTesterUseCase useCase) =>
+var testerGroup = app
+    .MapGroup("/Testers")
+    .WithTags("Testers")
+    .WithOpenApi();
+
+testerGroup.MapPost("/", async (
+    [FromBody]CreateTesterRequest request,
+    CreateTesterUseCase useCase) =>
 {
     var response = await useCase.ExecuteAsync(request);
     return response.ToHttpResult();
 })
-.WithName("Testers")
-.Produces<Result<CreateTesterResponse>>()
-.WithOpenApi();
+.Produces<Result<CreateTesterResponse>>();
+
+testerGroup.MapPut("/{userName}", async (
+    string userName, 
+    [FromBody]UpdateTesterRequest request, 
+    UpdateTesterUseCase useCase) =>
+{
+    var response = await useCase.ExecuteAsync(userName, request);
+    return response.ToHttpResult();
+})
+.Produces<Result<UpdateTesterResponse>>();
 
 app.Run();

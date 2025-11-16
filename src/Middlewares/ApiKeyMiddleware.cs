@@ -9,7 +9,7 @@ public class ApiKeyMiddleware(RequestDelegate next)
     public async Task InvokeAsync(HttpContext context)
     {
         var path = context.Request.Path.Value?.ToLower();
-        if (path != null && path.StartsWith("/api/tester/validate-access"))
+        if (path != null && path.StartsWith("/api/testers/validate-access"))
         {
             await next(context);
             return;

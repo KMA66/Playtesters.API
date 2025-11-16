@@ -32,7 +32,7 @@ app.UseRequestLocalization("en");
 app.UseHttpsRedirection();
 
 var testerGroup = app
-    .MapGroup("/api/tester")
+    .MapGroup("/api/testers")
     .WithTags("Tester")
     .WithOpenApi();
 

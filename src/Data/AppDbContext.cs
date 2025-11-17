@@ -11,5 +11,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
         modelBuilder.Entity<Tester>()
             .HasIndex(t => t.Name)
             .IsUnique();
+
+        modelBuilder.Entity<AccessValidationHistory>();
     }
 }

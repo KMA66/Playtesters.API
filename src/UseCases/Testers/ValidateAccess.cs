@@ -6,7 +6,7 @@ using SimpleResults;
 
 namespace Playtesters.API.UseCases.Testers;
 
-public record ValidateTesterAccessRequest(string Name, string AccessKey);
+public record ValidateTesterAccessRequest(string Name, string AccessKey, string IpAddress);
 public record ValidateTesterAccessResponse(string Name);
 
 public class ValidateTesterAccessValidator 
@@ -42,6 +42,14 @@ public class ValidateTesterAccessUseCase(
 
         if (tester is null || tester.AccessKey != request.AccessKey)
             return Result.Unauthorized("Invalid credentials.");
+
+        var history = new AccessValidationHistory
+        {
+            TesterId = tester.Id,
+            IpAddress = request.IpAddress
+        };
+        dbContext.Add(history);
+        await dbContext.SaveChangesAsync();
 
         var response = new ValidateTesterAccessResponse(tester.Name);
         return Result.Success(response);

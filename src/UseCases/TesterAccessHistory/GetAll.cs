@@ -41,16 +41,16 @@ public class GetAllTestersAccessHistoryValidator
         RuleFor(t => t)
             .Must(request =>
             {
-                if (string.IsNullOrWhiteSpace(request.FromDate) ||
-                    string.IsNullOrWhiteSpace(request.ToDate))
-                    return true;
-
                 var from = DateOnly.Parse(request.FromDate);
                 var to = DateOnly.Parse(request.ToDate);
-
                 return from <= to;
             })
-            .WithMessage("FromDate must be earlier than or equal to ToDate.");
+            .WithMessage("FromDate must be earlier than or equal to ToDate.")
+            .When(t =>
+                !string.IsNullOrWhiteSpace(t.FromDate) &&
+                !string.IsNullOrWhiteSpace(t.ToDate) &&
+                IsValidDate(t.FromDate) &&
+                IsValidDate(t.ToDate));
     }
 
     private bool IsValidDate(string value)

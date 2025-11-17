@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Playtesters.API.Data;
 using Playtesters.API.Extensions;
 using Playtesters.API.Middlewares;
+using Playtesters.API.UseCases.TesterAccessHistory;
 using Playtesters.API.UseCases.Testers;
 using SimpleResults;
 
@@ -70,5 +71,14 @@ testerGroup.MapPost("/validate-access", async (
     return response.ToHttpResult();
 })
 .Produces<Result<ValidateTesterAccessResponse>>();
+
+testerGroup.MapGet("/access-history", async (
+    [AsParameters]GetAllTestersAccessHistoryRequest request, 
+    GetAllTestersAccessHistoryUseCase useCase) =>
+{
+    var response = await useCase.ExecuteAsync(request);
+    return response.ToHttpResult();
+})
+.Produces<PagedResult<GetAllTestersAccessHistoryResponse>>();
 
 app.Run();

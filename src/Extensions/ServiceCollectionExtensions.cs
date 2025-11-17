@@ -1,4 +1,5 @@
-﻿using Playtesters.API.UseCases.Testers;
+﻿using Playtesters.API.UseCases.TesterAccessHistory;
+using Playtesters.API.UseCases.Testers;
 
 namespace Playtesters.API.Extensions;
 
@@ -10,12 +11,14 @@ public static class ServiceCollectionExtensions
             .AddScoped<CreateTesterUseCase>()
             .AddScoped<UpdateTesterUseCase>()
             .AddScoped<GetTestersUseCase>()
-            .AddScoped<ValidateTesterAccessUseCase>();
+            .AddScoped<ValidateTesterAccessUseCase>()
+            .AddScoped<GetAllTestersAccessHistoryUseCase>();
 
         services
             .AddSingleton<CreateTesterValidator>()
             .AddSingleton<UpdateTesterValidator>()
-            .AddSingleton<ValidateTesterAccessValidator>();
+            .AddSingleton<ValidateTesterAccessValidator>()
+            .AddSingleton<GetAllTestersAccessHistoryValidator>();
 
         return services;
     }

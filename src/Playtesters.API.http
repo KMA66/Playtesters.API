@@ -1,6 +1,78 @@
-@Playtesters.API_HostAddress = http://localhost:5183
+@host = http://localhost:5183
+@adminKey = your-API-key
 
-GET {{Playtesters.API_HostAddress}}/weatherforecast/
-Accept: application/json
+### ---------------------------------------------------------
+### CREATE TESTER
+### POST /api/testers
+### ---------------------------------------------------------
+
+POST {{host}}/api/testers
+Content-Type: application/json
+X-Api-Key: {{adminKey}}
+
+{
+  "name": "NewTester123"
+}
+
+###
+
+### ---------------------------------------------------------
+### UPDATE TESTER (by name)
+### PUT /api/testers/{name}
+### ---------------------------------------------------------
+
+PUT {{host}}/api/testers/Tester123
+Content-Type: application/json
+X-Api-Key: {{adminKey}}
+
+{
+  "accessKey": ""   // null or empty = revoke
+}
+
+###
+
+### ---------------------------------------------------------
+### LIST ALL TESTERS
+### GET /api/testers
+### ---------------------------------------------------------
+
+GET {{host}}/api/testers
+X-Api-Key: {{adminKey}}
+
+###
+
+### ---------------------------------------------------------
+### VALIDATE ACCESS (Public)
+### POST /api/testers/validate-access
+### ---------------------------------------------------------
+
+POST {{host}}/api/testers/validate-access
+Content-Type: application/json
+
+{
+  "name": "Tester123",
+  "accessKey": "some-guid-here",
+  "ipAddress": "127.0.0.1"
+}
+
+###
+
+### ---------------------------------------------------------
+### GET ACCESS HISTORY (Paged + Optional Filters)
+### GET /api/testers/access-history
+###
+### Optional Query Parameters:
+### - name: filter by tester name
+### - ipAddress: filter by IP
+### - fromDate: start date (ISO 8601)
+### - toDate: end date (ISO 8601)
+### - pageNumber: page number
+### - pageSize: results per page
+###
+### Example below uses all filters.
+### ---------------------------------------------------------
+
+GET {{host}}/api/testers/access-history?name=Tester123&ipAddress=127.0.0.1&fromDate=2024-01-01&toDate=2025-01-01&pageNumber=1&pageSize=20
+X-Api-Key: {{adminKey}}
 
 ###

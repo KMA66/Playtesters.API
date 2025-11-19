@@ -11,6 +11,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options)
         modelBuilder
             .Entity<Tester>()
             .Property(t => t.Name)
+            .IsRequired()
             .HasColumnType("TEXT COLLATE NOCASE");
 
         modelBuilder

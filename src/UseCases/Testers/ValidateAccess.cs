@@ -7,7 +7,7 @@ using System.Net;
 
 namespace Playtesters.API.UseCases.Testers;
 
-public record ValidateTesterAccessRequest(string Name, string AccessKey, string IpAddress);
+public record ValidateTesterAccessRequest(string AccessKey, string IpAddress);
 public record ValidateTesterAccessResponse(string Name);
 
 public class ValidateTesterAccessValidator 
@@ -15,10 +15,6 @@ public class ValidateTesterAccessValidator
 {
     public ValidateTesterAccessValidator()
     {
-        RuleFor(t => t.Name)
-            .NotEmpty()
-            .MinimumLength(3);
-
         RuleFor(t => t.AccessKey)
             .NotEmpty()
             .Must(key => Guid.TryParse(key, out _))
@@ -44,9 +40,9 @@ public class ValidateTesterAccessUseCase(
 
         var tester = await dbContext
             .Set<Tester>()
-            .FirstOrDefaultAsync(t => t.Name == request.Name);
+            .FirstOrDefaultAsync(t => t.AccessKey == request.AccessKey);
 
-        if (tester is null || tester.AccessKey != request.AccessKey)
+        if (tester is null)
             return Result.Invalid("Invalid credentials.");
 
         var history = new AccessValidationHistory

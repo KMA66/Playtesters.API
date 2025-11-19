@@ -26,4 +26,7 @@ CREATE INDEX IF NOT EXISTS "IX_AccessValidationHistory_TesterId" ON "AccessValid
 CREATE UNIQUE INDEX IF NOT EXISTS "IX_Tester_Name" ON "Tester" (
 	"Name" COLLATE NOCASE
 );
+CREATE UNIQUE INDEX IF NOT EXISTS "IX_Tester_AccessKey" ON "Tester" (
+	"AccessKey"
+);
 COMMIT;

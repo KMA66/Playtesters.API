@@ -63,7 +63,8 @@ testerGroup.MapPut("/{name}", async (
 })
 .Produces<Result<UpdateTesterResponse>>();
 
-testerGroup.MapGet("/", async ([FromServices]GetTestersUseCase useCase) =>
+testerGroup.MapGet("/", async (
+    [FromServices]GetTestersUseCase useCase) =>
 {
     var response = await useCase.ExecuteAsync();
     return response.ToHttpResult();
@@ -87,5 +88,13 @@ testerGroup.MapGet("/access-history", async (
     return response.ToHttpResult();
 })
 .Produces<PagedResult<GetAllTestersAccessHistoryResponse>>();
+
+testerGroup.MapPut("/revoke-all-keys", async (
+    [FromServices]RevokeAllKeysUseCase useCase) =>
+{
+    var response = await useCase.ExecuteAsync();
+    return response.ToHttpResult();
+})
+.Produces<Result<RevokeAllKeysResponse>>();
 
 app.Run();

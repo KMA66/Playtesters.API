@@ -12,7 +12,8 @@ public static class ServiceCollectionExtensions
             .AddScoped<UpdateTesterUseCase>()
             .AddScoped<GetTestersUseCase>()
             .AddScoped<ValidateTesterAccessUseCase>()
-            .AddScoped<GetAllTestersAccessHistoryUseCase>();
+            .AddScoped<GetAllTestersAccessHistoryUseCase>()
+            .AddScoped<RevokeAllKeysUseCase>();
 
         services
             .AddSingleton<CreateTesterValidator>()

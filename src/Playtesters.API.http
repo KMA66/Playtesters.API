@@ -50,8 +50,7 @@ POST {{host}}/api/testers/validate-access
 Content-Type: application/json
 
 {
-  "accessKey": "some-guid-here",
-  "ipAddress": "127.0.0.1"
+  "accessKey": "some-guid-here"
 }
 
 ###

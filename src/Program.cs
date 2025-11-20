@@ -17,7 +17,7 @@ var dataSource = envVars["SQLITE_DATA_SOURCE"] ?? "playtesters.db";
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerWithApiKey();
-builder.Services.AddUseCases();
+builder.Services.AddServices();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite($"Data Source={dataSource}"));

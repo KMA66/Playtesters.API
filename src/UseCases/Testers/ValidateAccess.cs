@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Playtesters.API.Data;
 using Playtesters.API.Entities;
+using Playtesters.API.Services;
 using SimpleResults;
-using System.Net;
 
 namespace Playtesters.API.UseCases.Testers;
 
-public record ValidateTesterAccessRequest(string AccessKey, string IpAddress);
+public record ValidateTesterAccessRequest(string AccessKey);
 public record ValidateTesterAccessResponse(string Name);
 
 public class ValidateTesterAccessValidator 
@@ -19,17 +19,13 @@ public class ValidateTesterAccessValidator
             .NotEmpty()
             .Must(key => Guid.TryParse(key, out _))
             .WithMessage("Access Key must be a valid GUID.");
-
-        RuleFor(t => t.IpAddress)
-            .NotEmpty()
-            .Must(ip => IPAddress.TryParse(ip, out _))
-            .WithMessage("IpAddress must be a valid IPv4 or IPv6 address.");
     }
 }
 
 public class ValidateTesterAccessUseCase(
     AppDbContext dbContext,
-    ValidateTesterAccessValidator validator)
+    ValidateTesterAccessValidator validator,
+    IClientIpProvider clientIpProvider)
 {
     public async Task<Result<ValidateTesterAccessResponse>> ExecuteAsync(
         ValidateTesterAccessRequest request)
@@ -48,7 +44,7 @@ public class ValidateTesterAccessUseCase(
         var history = new AccessValidationHistory
         {
             TesterId = tester.Id,
-            IpAddress = request.IpAddress
+            IpAddress = clientIpProvider.GetClientIp()
         };
         dbContext.Add(history);
         await dbContext.SaveChangesAsync();

@@ -24,6 +24,8 @@ It’s designed for indie developers or small teams who need a simple way to man
 - [FluentValidation](https://github.com/FluentValidation/FluentValidation)
 - [SimpleResults](https://github.com/DevD4v3/SimpleResults)
 - [DotEnv.Core](https://github.com/DevD4v3/dotenv.core)
+- [NUnit](https://github.com/nunit/nunit)
+- [FluentAssertions V7](https://github.com/fluentassertions/fluentassertions)
 
 ## 🚀 Getting Started
 

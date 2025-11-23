@@ -92,6 +92,12 @@ Only the endpoint `/api/testers/validate-access` is publicly accessible by game 
 
 The public `/api/testers/validate-access` endpoint can be called directly from your Unity project to validate tester access before allowing gameplay or enabling private build features.
 
+### Unity Login Flow Demo
+
+Below is a quick demonstration of how you can integrate the Playtesters API into a Unity login screen using a simple access key workflow.
+
+![Unity Playtesters Login Demo](assets/unity-login-integration-demo.gif)
+
 ## 📘 HTTP Request Examples
 
 You can use this [Playtesters.API.http](https://github.com/DevD4v3/Playtesters.API/blob/master/src/Playtesters.API.http) file (VS Code / Rider / Visual Studio compatible) to test every endpoint of the API.

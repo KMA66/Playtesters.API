@@ -10,10 +10,12 @@ It’s designed for indie developers or small teams who need a simple way to man
 
 - Create and manage tester accounts with unique access keys (GUIDs).
 - Track successful access validations with timestamp and IP address.
+- Filter and inspect tester access history by country for better monitoring and detection of shared access keys.
+- Built-in IP geolocation system powered by ip-api.com, with caching to minimize API calls and improve performance.
 - Secure admin endpoints using an API key stored in `.env`.
 - Public endpoint for game clients to validate access keys.
 - Easy to integrate with Unity or any custom launcher/client.
-- Organized structure using use cases, DTOs, validators, and minimal APIs.
+- Organized structure using use cases, services, DTOs, validators, and minimal APIs.
 
 ## 🧰Tech Stack
 - [.NET 8 (Web API)](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)

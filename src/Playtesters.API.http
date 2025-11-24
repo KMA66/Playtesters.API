@@ -21,7 +21,7 @@ X-Api-Key: {{adminKey}}
 ### PUT /api/testers/{name}
 ### ---------------------------------------------------------
 
-PUT {{host}}/api/testers/Tester123
+PATCH {{host}}/api/testers/Tester123
 Content-Type: application/json
 X-Api-Key: {{adminKey}}
 

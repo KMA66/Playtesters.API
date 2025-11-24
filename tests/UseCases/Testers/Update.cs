@@ -10,7 +10,7 @@ namespace Playtesters.API.Tests.UseCases.Testers;
 public class UpdateTesterApiTests : TestBase
 {
     [Test]
-    public async Task Put_WhenTesterExists_ShouldUpdateAndReturnUpdatedTester()
+    public async Task Patch_WhenTesterExists_ShouldUpdateAndReturnUpdatedTester()
     {
         // Arrange
         var client = CreateHttpClientWithApiKey();
@@ -22,7 +22,7 @@ public class UpdateTesterApiTests : TestBase
         var expectedName = "Carlos";
 
         // Act
-        var response = await client.PutAsJsonAsync("/api/testers/Carlos", updateRequest);
+        var response = await client.PatchAsJsonAsync("/api/testers/Carlos", updateRequest);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -35,7 +35,7 @@ public class UpdateTesterApiTests : TestBase
     }
 
     [Test]
-    public async Task Put_WhenTesterUpdated_ShouldPersistChangesInDatabase()
+    public async Task Patch_WhenTesterUpdated_ShouldPersistChangesInDatabase()
     {
         // Arrange
         var client = CreateHttpClientWithApiKey();
@@ -47,7 +47,7 @@ public class UpdateTesterApiTests : TestBase
         var expectedName = "Maria";
 
         // Act
-        var response = await client.PutAsJsonAsync("/api/testers/Maria", updateRequest);
+        var response = await client.PatchAsJsonAsync("/api/testers/Maria", updateRequest);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -58,7 +58,7 @@ public class UpdateTesterApiTests : TestBase
     }
 
     [Test]
-    public async Task Put_WhenTesterDoesNotExist_ShouldReturnNotFound()
+    public async Task Patch_WhenTesterDoesNotExist_ShouldReturnNotFound()
     {
         // Arrange
         var client = CreateHttpClientWithApiKey();
@@ -68,7 +68,7 @@ public class UpdateTesterApiTests : TestBase
         var updateRequest = new UpdateTesterRequest(AccessKey: Guid.NewGuid().ToString());
 
         // Act
-        var response = await client.PutAsJsonAsync("/api/testers/NotExist", updateRequest);
+        var response = await client.PatchAsJsonAsync("/api/testers/NotExist", updateRequest);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -79,14 +79,14 @@ public class UpdateTesterApiTests : TestBase
     }
 
     [Test]
-    public async Task Put_WhenAccessKeyIsInvalid_ShouldReturnBadRequest()
+    public async Task Patch_WhenAccessKeyIsInvalid_ShouldReturnBadRequest()
     {
         // Arrange
         var client = CreateHttpClientWithApiKey();
         var updateRequest = new UpdateTesterRequest("NOT-A-GUID");
 
         // Act
-        var response = await client.PutAsJsonAsync("/api/testers/Juan", updateRequest);
+        var response = await client.PatchAsJsonAsync("/api/testers/Juan", updateRequest);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -97,14 +97,14 @@ public class UpdateTesterApiTests : TestBase
     }
 
     [Test]
-    public async Task Put_WhenMissingApiKey_ShouldReturnUnauthorized()
+    public async Task Patch_WhenMissingApiKey_ShouldReturnUnauthorized()
     {
         // Arrange
         var client = ApplicationFactory.CreateClient();
         var updateRequest = new UpdateTesterRequest(AccessKey: Guid.NewGuid().ToString());
 
         // Act
-        var response = await client.PutAsJsonAsync("/api/testers/Pepe", updateRequest);
+        var response = await client.PatchAsJsonAsync("/api/testers/Pepe", updateRequest);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);

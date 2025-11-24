@@ -54,7 +54,7 @@ testerGroup.MapPost("/", async (
 })
 .Produces<Result<CreateTesterResponse>>();
 
-testerGroup.MapPut("/{name}", async (
+testerGroup.MapPatch("/{name}", async (
     string name, 
     [FromBody]UpdateTesterRequest request, 
     UpdateTesterUseCase useCase) =>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Playtesters.API.Data;
 using Playtesters.API.Entities;
+using Playtesters.API.Extensions;
 using SimpleResults;
 
 namespace Playtesters.API.UseCases.Testers;
@@ -10,6 +11,7 @@ public class GetTestersResponse
     public required string Name { get; init; }
     public required string AccessKey { get; init; }
     public required double TotalHoursPlayed { get; init; }
+    public required string TotalPlaytime { get; init; }
     public required string CreatedAt { get; init; }
 }
 
@@ -24,6 +26,7 @@ public class GetTestersUseCase(AppDbContext dbContext)
                 Name = t.Name,
                 AccessKey = t.AccessKey,
                 TotalHoursPlayed = t.TotalHoursPlayed,
+                TotalPlaytime = t.TotalHoursPlayed.ToHhMmSs(),
                 CreatedAt = t.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")
             })
             .ToListAsync();

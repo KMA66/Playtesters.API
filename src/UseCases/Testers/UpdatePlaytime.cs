@@ -28,12 +28,11 @@ public class UpdatePlaytimeUseCase(
         if (validationResult.IsFailed())
             return validationResult.Invalid();
 
-        double roundedHours = Math.Round(request.HoursPlayed, 2);
         int affectedRows = await dbContext
             .Set<Tester>()
             .Where(t => t.AccessKey == accessKey)
             .ExecuteUpdateAsync(setters => setters
-                .SetProperty(t => t.TotalHoursPlayed, t => t.TotalHoursPlayed + roundedHours));
+                .SetProperty(t => t.TotalHoursPlayed, t => t.TotalHoursPlayed + request.HoursPlayed));
 
         return affectedRows == 0 ? Result.NotFound() : Result.Success();
     }

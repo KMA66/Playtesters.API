@@ -60,9 +60,9 @@ public class ValidateTesterAccessUseCase(
         await dbContext.SaveChangesAsync();
 
         var response = new ValidateTesterAccessResponse(
-            Name: tester.Name, 
-            tester.TotalHoursPlayed,
-            tester.TotalHoursPlayed.ToHhMmSs()
+            Name: tester.Name,
+            TotalHoursPlayed: tester.TotalHoursPlayed,
+            TotalPlaytime: tester.TotalHoursPlayed.ToHhMmSs()
         );
         return Result.Success(response);
     }

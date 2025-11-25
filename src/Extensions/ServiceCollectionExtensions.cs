@@ -11,6 +11,7 @@ public static class ServiceCollectionExtensions
         services
             .AddScoped<CreateTesterUseCase>()
             .AddScoped<UpdateTesterUseCase>()
+            .AddScoped<UpdatePlaytimeUseCase>()
             .AddScoped<GetTestersUseCase>()
             .AddScoped<ValidateTesterAccessUseCase>()
             .AddScoped<GetAllTestersAccessHistoryUseCase>()
@@ -27,6 +28,7 @@ public static class ServiceCollectionExtensions
         services
             .AddSingleton<CreateTesterValidator>()
             .AddSingleton<UpdateTesterValidator>()
+            .AddSingleton<UpdatePlaytimeValidator>()
             .AddSingleton<ValidateTesterAccessValidator>()
             .AddSingleton<GetAllTestersAccessHistoryValidator>();
 

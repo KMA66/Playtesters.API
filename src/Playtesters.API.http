@@ -61,6 +61,20 @@ Content-Type: application/json
 ###
 
 ### ---------------------------------------------------------
+### UPDATE PLAYTIME (Public)
+### POST /api/testers/{accessKey}/playtime
+### ---------------------------------------------------------
+
+POST {{host}}/api/testers/{accessKey}/playtime
+Content-Type: application/json
+
+{
+  "hoursPlayed": "some-value-here"
+}
+
+###
+
+### ---------------------------------------------------------
 ### GET ACCESS HISTORY (Paged + Optional Filters)
 ### GET /api/testers/access-history
 ###

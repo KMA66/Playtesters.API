@@ -64,6 +64,16 @@ testerGroup.MapPatch("/{name}", async (
 })
 .Produces<Result<UpdateTesterResponse>>();
 
+testerGroup.MapPatch("/{accessKey}/playtime", async (
+    string accessKey,
+    [FromBody]UpdatePlaytimeRequest request,
+    UpdatePlaytimeUseCase useCase) =>
+{
+    var response = await useCase.ExecuteAsync(accessKey, request);
+    return response.ToHttpResult();
+})
+.Produces<Result>();
+
 testerGroup.MapGet("/", async (
     [FromServices]GetTestersUseCase useCase) =>
 {

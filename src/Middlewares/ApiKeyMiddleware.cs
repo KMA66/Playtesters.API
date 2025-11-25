@@ -1,4 +1,5 @@
 ﻿using DotEnv.Core;
+using Microsoft.AspNetCore.Authorization;
 using SimpleResults;
 using System.Net;
 
@@ -8,8 +9,8 @@ public class ApiKeyMiddleware(RequestDelegate next)
 {
     public async Task InvokeAsync(HttpContext context)
     {
-        var path = context.Request.Path.Value?.ToLower();
-        if (path != null && path.StartsWith("/api/testers/validate-access"))
+        var endpoint = context.GetEndpoint();
+        if (endpoint?.Metadata.GetMetadata<AllowAnonymousAttribute>() != null)
         {
             await next(context);
             return;

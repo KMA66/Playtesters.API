@@ -1,4 +1,5 @@
 using DotEnv.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Playtesters.API.Data;
@@ -72,7 +73,8 @@ testerGroup.MapPatch("/{accessKey}/playtime", async (
     var response = await useCase.ExecuteAsync(accessKey, request);
     return response.ToHttpResult();
 })
-.Produces<Result>();
+.Produces<Result>()
+.WithMetadata(new AllowAnonymousAttribute());
 
 testerGroup.MapGet("/", async (
     [FromServices]GetTestersUseCase useCase) =>
@@ -89,7 +91,8 @@ testerGroup.MapPost("/validate-access", async (
     var response = await useCase.ExecuteAsync(request);
     return response.ToHttpResult();
 })
-.Produces<Result<ValidateTesterAccessResponse>>();
+.Produces<Result<ValidateTesterAccessResponse>>()
+.WithMetadata(new AllowAnonymousAttribute());
 
 testerGroup.MapGet("/access-history", async (
     [AsParameters]GetAllTestersAccessHistoryRequest request, 

@@ -14,6 +14,7 @@ It’s designed for indie developers or small teams who need a simple way to man
 - Built-in IP geolocation system powered by ip-api.com, with caching to minimize API calls and improve performance.
 - Secure admin endpoints using an API key stored in `.env`.
 - Public endpoint for game clients to validate access keys.
+- Public endpoint to report and accumulate playtime, allowing game clients to increment hours played.
 - Easy to integrate with Unity or any custom launcher/client.
 - Organized structure using use cases, services, DTOs, validators, and minimal APIs.
 
@@ -88,12 +89,13 @@ The admin key must be defined in your `.env` file:
 API_KEY=your-admin-key
 ```
 
-Only the endpoint `/api/testers/validate-access` is publicly accessible by game clients.
+Only the endpoint `/api/testers/validate-access` is publicly accessible for validating tester access, and `/api/testers/{accessKey}/playtime` is publicly accessible for reporting accumulated playtime.
 
 ## 🎮Unity Integration
 
-The public `/api/testers/validate-access` endpoint can be called directly from your Unity project to validate tester access before allowing gameplay or enabling private build features.
+- The `/api/testers/validate-access` endpoint should be called before allowing gameplay or enabling private build features to ensure the tester has valid access.
 
+- The `/api/testers/{accessKey}/playtime` endpoint can be called anytime during or after gameplay to report accumulated playtime for the tester.
 ### Unity Login Flow Demo
 
 Below is a quick demonstration of how you can integrate the Playtesters API into a Unity login screen using a simple access key workflow.

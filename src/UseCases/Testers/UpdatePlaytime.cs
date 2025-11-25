@@ -18,10 +18,16 @@ public class UpdatePlaytimeValidator
     }
 }
 
-public class UpdatePlaytimeUseCase(AppDbContext dbContext)
+public class UpdatePlaytimeUseCase(
+    AppDbContext dbContext,
+    UpdatePlaytimeValidator validator)
 {
     public async Task<Result> ExecuteAsync(string accessKey, UpdatePlaytimeRequest request)
     {
+        var validationResult = validator.Validate(request);
+        if (validationResult.IsFailed())
+            return validationResult.Invalid();
+
         int affectedRows = await dbContext
             .Set<Tester>()
             .Where(t => t.AccessKey == accessKey)

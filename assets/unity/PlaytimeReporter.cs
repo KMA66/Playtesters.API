@@ -51,7 +51,7 @@ namespace MyGame.PlayTesters
         {
             while (true)
             {
-                yield return new WaitForSeconds(_reportIntervalSeconds);
+                yield return new WaitForSecondsRealtime(_reportIntervalSeconds);
                 double hoursPlayed = (DateTime.UtcNow - _lastReportTime).TotalHours;
                 _lastReportTime = DateTime.UtcNow;
 

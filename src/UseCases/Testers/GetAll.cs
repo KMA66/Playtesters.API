@@ -43,6 +43,9 @@ public class GetTestersValidator : AbstractValidator<GetTestersRequest>
         if (string.IsNullOrWhiteSpace(value))
             return true;
 
+        if (int.TryParse(value, out _))
+            return false;
+
         return Enum.TryParse<GetTestersOrderBy>(value, ignoreCase: true, out _);
     }
 }

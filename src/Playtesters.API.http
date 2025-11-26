@@ -39,9 +39,17 @@ X-Api-Key: {{adminKey}}
 ### ---------------------------------------------------------
 ### LIST ALL TESTERS
 ### GET /api/testers
+###
+### Optional Query Parameters:
+### - orderBy: sorting strategy (case-insensitive).
+###   Allowed values:
+###   - CreatedAtAsc
+###   - CreatedAtDesc
+###   - TotalHoursPlayedAsc
+###   - TotalHoursPlayedDesc
 ### ---------------------------------------------------------
 
-GET {{host}}/api/testers
+GET {{host}}/api/testers?orderBy=TotalHoursPlayedDesc
 X-Api-Key: {{adminKey}}
 
 ###

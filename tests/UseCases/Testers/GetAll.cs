@@ -8,8 +8,13 @@ namespace Playtesters.API.Tests.UseCases.Testers;
 
 public class GetTestersApiTests : TestBase
 {
-    [Test]
-    public async Task Get_WhenTestersExist_ShouldReturnAllTesters()
+    [TestCase("?OrderBy=CreatedAtDesc")]
+    [TestCase("?OrderBy=CreatedAtAsc")]
+    [TestCase("?OrderBy=TotalHoursPlayedDesc")]
+    [TestCase("?OrderBy=TotalHoursPlayedAsc")]
+    [TestCase("?OrderBy=")]
+    [TestCase("")]
+    public async Task Get_WhenTestersExist_ShouldReturnAllTesters(string queryParams)
     {
         // Arrange
         var client = CreateHttpClientWithApiKey();
@@ -21,7 +26,7 @@ public class GetTestersApiTests : TestBase
         }
 
         // Act
-        var response = await client.GetAsync("/api/testers");
+        var response = await client.GetAsync($"/api/testers{queryParams}");
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);

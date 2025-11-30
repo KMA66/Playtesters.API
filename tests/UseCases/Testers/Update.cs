@@ -35,7 +35,7 @@ public class UpdateTesterApiTests : TestBase
     }
 
     [Test]
-    public async Task Patch_WhenTesterUpdated_ShouldPersistChangesInDatabase()
+    public async Task Patch_WhenAccessKeyIsUpdated_ShouldPersistAndReturnUpdatedKey()
     {
         // Arrange
         var client = CreateHttpClientWithApiKey();
@@ -43,7 +43,7 @@ public class UpdateTesterApiTests : TestBase
         await client.PostAsJsonAsync("/api/testers", createRequest);
 
         var updatedKey = Guid.NewGuid().ToString();
-        var updateRequest = new UpdateTesterRequest(updatedKey);
+        var updateRequest = new UpdateTesterRequest(AccessKey: updatedKey);
         var expectedName = "Maria";
 
         // Act
@@ -55,6 +55,7 @@ public class UpdateTesterApiTests : TestBase
         var tester = await FirstOrDefaultAsync<Tester>(t => t.Name == expectedName);
         tester.Should().NotBeNull();
         tester.AccessKey.Should().Be(updatedKey);
+        tester.Name.Should().Be(expectedName);
     }
 
     [Test]
@@ -158,6 +159,92 @@ public class UpdateTesterApiTests : TestBase
         var tester = await FirstOrDefaultAsync<Tester>(t => t.Name == expectedName);
         tester.Should().NotBeNull();
         tester.AccessKey.Should().Be(initialKey);
+        tester.Name.Should().Be(expectedName);
+    }
+
+    [Test]
+    public async Task Patch_WhenNameIsUpdated_ShouldPersistAndReturnUpdatedName()
+    {
+        // Arrange
+        var client = CreateHttpClientWithApiKey();
+        var createRequest = new CreateTesterRequest(Name: "Pedro");
+        await client.PostAsJsonAsync("/api/testers", createRequest);
+
+        var updateRequest = new UpdateTesterRequest(Name: "Pedro2");
+        var expectedName = "Pedro2";
+
+        // Act
+        var response = await client.PatchAsJsonAsync("/api/testers/Pedro", updateRequest);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var body = await response.Content.ReadFromJsonAsync<Result<UpdateTesterResponse>>();
+        body.Should().NotBeNull();
+        body.IsSuccess.Should().BeTrue();
+        body.Data.Name.Should().Be(expectedName);
+        body.Data.AccessKey.Should().NotBeNull();
+
+        var tester = await FirstOrDefaultAsync<Tester>(t => t.Name == expectedName);
+        tester.Should().NotBeNull();
+        tester.AccessKey.Should().NotBeNull();
+        tester.Name.Should().Be(expectedName);
+    }
+
+    [Test]
+    public async Task Patch_WhenNameIsInvalid_ShouldReturnBadRequest()
+    {
+        // Arrange
+        var client = CreateHttpClientWithApiKey();
+        var createRequest = new CreateTesterRequest(Name: "Laura");
+        await client.PostAsJsonAsync("/api/testers", createRequest);
+
+        var updateRequest = new UpdateTesterRequest(Name: "  ");
+
+        // Act
+        var response = await client.PatchAsJsonAsync("/api/testers/Laura", updateRequest);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        var body = await response.Content.ReadFromJsonAsync<Result>();
+        body.Should().NotBeNull();
+        body.IsFailed.Should().BeTrue();
+    }
+
+    [Test]
+    public async Task Patch_WhenBodyIsEmpty_ShouldNotChangeExistingValues()
+    {
+        // Arrange
+        var client = CreateHttpClientWithApiKey();
+        var initialKey = Guid.NewGuid().ToString();
+        var createRequest = new CreateTesterRequest(Name: "Sofia");
+        await client.PostAsJsonAsync("/api/testers", createRequest);
+
+        // Assign initial access key
+        var assignRequest = new UpdateTesterRequest(AccessKey: initialKey);
+        await client.PatchAsJsonAsync("/api/testers/Sofia", assignRequest);
+
+        var noChangeRequest = new UpdateTesterRequest(AccessKey: null, Name: null);
+        var expectedName = "Sofia";
+        var expectedAccessKey = initialKey;
+
+        // Act
+        var response = await client.PatchAsJsonAsync("/api/testers/Sofia", noChangeRequest);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var body = await response.Content.ReadFromJsonAsync<Result<UpdateTesterResponse>>();
+        body.Should().NotBeNull();
+        body.IsSuccess.Should().BeTrue();
+        body.Data.Name.Should().Be(expectedName);
+        body.Data.AccessKey.Should().Be(expectedAccessKey);
+
+        var tester = await FirstOrDefaultAsync<Tester>(t => t.Name == expectedName);
+        tester.Should().NotBeNull();
+        tester.Name.Should().Be(expectedName);
+        tester.AccessKey.Should().Be(expectedAccessKey);
     }
 
     [Test]

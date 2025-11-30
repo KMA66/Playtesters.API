@@ -6,7 +6,10 @@ using SimpleResults;
 
 namespace Playtesters.API.UseCases.Testers;
 
-public record UpdateTesterRequest(string AccessKey);
+public record UpdateTesterRequest(
+    string AccessKey = null, 
+    string Name = null
+);
 public record UpdateTesterResponse(string Name, string AccessKey);
 
 public class UpdateTesterValidator 
@@ -16,7 +19,12 @@ public class UpdateTesterValidator
     {
         RuleFor(t => t.AccessKey)
             .Must(key => string.IsNullOrEmpty(key) || Guid.TryParse(key, out _))
-            .WithMessage("AccessKey must be null, empty (to revoke) or a valid GUID.");
+            .WithMessage("AccessKey must be either null, empty (to revoke) or a valid GUID.");
+
+        RuleFor(t => t.Name)
+            .NotEmpty()
+            .MinimumLength(3)
+            .When(t => t.Name is not null);
     }
 }
 
@@ -38,11 +46,10 @@ public class UpdateTesterUseCase(
             return Result.NotFound();
 
         if (request.AccessKey is not null)
-        {
-            tester.AccessKey = string.IsNullOrEmpty(request.AccessKey)
-                ? null 
-                : request.AccessKey;
-        }
+            tester.AccessKey = string.IsNullOrEmpty(request.AccessKey) ? null : request.AccessKey;
+
+        if (request.Name is not null)
+            tester.Name = request.Name;
 
         await dbContext.SaveChangesAsync();
 

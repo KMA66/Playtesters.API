@@ -60,4 +60,74 @@ public class UpdateTesterValidatorTests
         // Assert
         result.ShouldNotHaveValidationErrorFor(r => r.AccessKey);
     }
+
+    [Test]
+    public void Name_WhenNull_ShouldNotHaveError()
+    {
+        // Arrange
+        var validator = new UpdateTesterValidator();
+        var request = new UpdateTesterRequest(Name: null);
+
+        // Act
+        var result = validator.TestValidate(request);
+
+        // Assert
+        result.ShouldNotHaveValidationErrorFor(r => r.Name);
+    }
+
+    [Test]
+    public void Name_WhenEmpty_ShouldHaveError()
+    {
+        // Arrange
+        var validator = new UpdateTesterValidator();
+        var request = new UpdateTesterRequest(Name: string.Empty);
+
+        // Act
+        var result = validator.TestValidate(request);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(r => r.Name);
+    }
+
+    [Test]
+    public void Name_WhenWhitespaceOnly_ShouldHaveError()
+    {
+        // Arrange
+        var validator = new UpdateTesterValidator();
+        var request = new UpdateTesterRequest(Name: "   ");
+
+        // Act
+        var result = validator.TestValidate(request);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(r => r.Name);
+    }
+
+    [Test]
+    public void Name_WhenLessThan3Chars_ShouldHaveError()
+    {
+        // Arrange
+        var validator = new UpdateTesterValidator();
+        var request = new UpdateTesterRequest(Name: "Al");
+
+        // Act
+        var result = validator.TestValidate(request);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(r => r.Name);
+    }
+
+    [Test]
+    public void Name_WhenValid_ShouldNotHaveError()
+    {
+        // Arrange
+        var validator = new UpdateTesterValidator();
+        var request = new UpdateTesterRequest(Name: "Alice");
+
+        // Act
+        var result = validator.TestValidate(request);
+
+        // Assert
+        result.ShouldNotHaveValidationErrorFor(r => r.Name);
+    }
 }

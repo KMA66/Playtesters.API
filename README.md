@@ -52,6 +52,7 @@ It’s designed for indie developers or small teams who need a simple way to man
 - Public endpoint to report and accumulate playtime, allowing game clients to increment hours played.
 - Easy to integrate with Unity or any custom launcher/client.
 - Organized structure using use cases, services, DTOs, validators, and minimal APIs.
+- Send Discord notifications via `DISCORD_WEBHOOK_URL` whenever a tester successfully validates access, allowing real-time monitoring of usage.
 
 ## 🧰Tech Stack
 - [.NET 8 (Web API)](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
@@ -73,8 +74,21 @@ cd src
 ```
 - Create a `.env` file:
 ```.env
+# ---------------------------------------------------------
+# Admin authentication key for protected endpoints
+# ---------------------------------------------------------
 API_KEY=your-admin-key
+
+# ---------------------------------------------------------
+# SQLite database file used to store testers and access logs
+# ---------------------------------------------------------
 SQLITE_DATA_SOURCE=playtesters.db
+
+# ---------------------------------------------------------
+# Discord webhook URL for sending notifications 
+# (set this only if you want Discord alerts)
+# ---------------------------------------------------------
+DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/xxxxx/xxxxx
 ```
 - Run the API:
 ```bash

@@ -30,6 +30,11 @@ X-Api-Key: {{adminKey}}
 ###    - null        => keep the current Name unchanged
 ###    - non-empty   => update the tester's Name (min length: 3)
 ###    - invalid/empty/whitespace => returns 400 Bad Request
+###
+### 3. "totalHoursPlayed":
+###    - null        => leave the current TotalHoursPlayed unchanged
+###    - >= 0        => update the tester's total hours played
+###    - < 0         => returns 400 Bad Request
 ### ---------------------------------------------------------
 
 PATCH {{host}}/api/testers/Tester123

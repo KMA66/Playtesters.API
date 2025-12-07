@@ -213,6 +213,58 @@ public class UpdateTesterApiTests : TestBase
     }
 
     [Test]
+    public async Task Patch_WhenTotalHoursPlayedIsUpdated_ShouldPersist()
+    {
+        // Arrange
+        var client = CreateHttpClientWithApiKey();
+        var createRequest = new CreateTesterRequest(Name: "Pedro");
+        await client.PostAsJsonAsync("/api/testers", createRequest);
+
+        var updateRequest = new UpdateTesterRequest(TotalHoursPlayed: 0.5);
+        var expectedTotalHoursPlayed = 0.5;
+        var expectedName = "Pedro";
+
+        // Act
+        var response = await client.PatchAsJsonAsync("/api/testers/Pedro", updateRequest);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var body = await response.Content.ReadFromJsonAsync<Result<UpdateTesterResponse>>();
+        body.Should().NotBeNull();
+        body.IsSuccess.Should().BeTrue();
+        body.Data.Name.Should().Be(expectedName);
+        body.Data.AccessKey.Should().NotBeNull();
+
+        var tester = await FirstOrDefaultAsync<Tester>(t => t.Name == expectedName);
+        tester.Should().NotBeNull();
+        tester.AccessKey.Should().NotBeNull();
+        tester.Name.Should().Be(expectedName);
+        tester.TotalHoursPlayed.Should().Be(expectedTotalHoursPlayed);
+    }
+
+    [Test]
+    public async Task Patch_WhenTotalHoursPlayedIsInvalid_ShouldReturnBadRequest()
+    {
+        // Arrange
+        var client = CreateHttpClientWithApiKey();
+        var createRequest = new CreateTesterRequest(Name: "Laura");
+        await client.PostAsJsonAsync("/api/testers", createRequest);
+
+        var updateRequest = new UpdateTesterRequest(TotalHoursPlayed: -0.5);
+
+        // Act
+        var response = await client.PatchAsJsonAsync("/api/testers/Laura", updateRequest);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        var body = await response.Content.ReadFromJsonAsync<Result>();
+        body.Should().NotBeNull();
+        body.IsFailed.Should().BeTrue();
+    }
+
+    [Test]
     public async Task Patch_WhenBodyIsEmpty_ShouldNotChangeExistingValues()
     {
         // Arrange
@@ -221,13 +273,17 @@ public class UpdateTesterApiTests : TestBase
         var createRequest = new CreateTesterRequest(Name: "Sofia");
         await client.PostAsJsonAsync("/api/testers", createRequest);
 
-        // Assign initial access key
-        var assignRequest = new UpdateTesterRequest(AccessKey: initialKey);
+        var assignRequest = new UpdateTesterRequest(AccessKey: initialKey, TotalHoursPlayed: 0.5);
         await client.PatchAsJsonAsync("/api/testers/Sofia", assignRequest);
 
-        var noChangeRequest = new UpdateTesterRequest(AccessKey: null, Name: null);
+        var noChangeRequest = new UpdateTesterRequest(
+            AccessKey: null, 
+            Name: null, 
+            TotalHoursPlayed: null
+        );
         var expectedName = "Sofia";
         var expectedAccessKey = initialKey;
+        var expectedTotalHoursPlayed = 0.5;
 
         // Act
         var response = await client.PatchAsJsonAsync("/api/testers/Sofia", noChangeRequest);
@@ -245,6 +301,7 @@ public class UpdateTesterApiTests : TestBase
         tester.Should().NotBeNull();
         tester.Name.Should().Be(expectedName);
         tester.AccessKey.Should().Be(expectedAccessKey);
+        tester.TotalHoursPlayed.Should().Be(expectedTotalHoursPlayed);
     }
 
     [Test]

@@ -130,4 +130,63 @@ public class UpdateTesterValidatorTests
         // Assert
         result.ShouldNotHaveValidationErrorFor(r => r.Name);
     }
+
+    [Test]
+    public void TotalHoursPlayed_WhenNull_ShouldNotHaveError()
+    {
+        // Arrange
+        var validator = new UpdateTesterValidator();
+        var request = new UpdateTesterRequest(TotalHoursPlayed: null);
+
+        // Act
+        var result = validator.TestValidate(request);
+
+        // Assert
+        result.ShouldNotHaveValidationErrorFor(r => r.TotalHoursPlayed);
+    }
+
+    [Test]
+    public void TotalHoursPlayed_WhenNegative_ShouldHaveError()
+    {
+        // Arrange
+        var validator = new UpdateTesterValidator();
+        var negativeValue = -1.5;
+        var request = new UpdateTesterRequest(TotalHoursPlayed: negativeValue);
+
+        // Act
+        var result = validator.TestValidate(request);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(r => r.TotalHoursPlayed);
+    }
+
+    [Test]
+    public void TotalHoursPlayed_WhenZero_ShouldNotHaveError()
+    {
+        // Arrange
+        var validator = new UpdateTesterValidator();
+        var zeroValue = 0.0;
+        var request = new UpdateTesterRequest(TotalHoursPlayed: zeroValue);
+
+        // Act
+        var result = validator.TestValidate(request);
+
+        // Assert
+        result.ShouldNotHaveValidationErrorFor(r => r.TotalHoursPlayed);
+    }
+
+    [Test]
+    public void TotalHoursPlayed_WhenPositive_ShouldNotHaveError()
+    {
+        // Arrange
+        var validator = new UpdateTesterValidator();
+        var positiveValue = 7.25;
+        var request = new UpdateTesterRequest(TotalHoursPlayed: positiveValue);
+
+        // Act
+        var result = validator.TestValidate(request);
+
+        // Assert
+        result.ShouldNotHaveValidationErrorFor(r => r.TotalHoursPlayed);
+    }
 }

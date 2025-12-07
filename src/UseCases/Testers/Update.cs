@@ -8,7 +8,8 @@ namespace Playtesters.API.UseCases.Testers;
 
 public record UpdateTesterRequest(
     string AccessKey = null, 
-    string Name = null
+    string Name = null,
+    double? TotalHoursPlayed = null
 );
 public record UpdateTesterResponse(string Name, string AccessKey);
 
@@ -25,6 +26,10 @@ public class UpdateTesterValidator
             .NotEmpty()
             .MinimumLength(3)
             .When(t => t.Name is not null);
+
+        RuleFor(t => t.TotalHoursPlayed)
+            .GreaterThanOrEqualTo(0)
+            .When(t => t.TotalHoursPlayed is not null);
     }
 }
 
@@ -50,6 +55,9 @@ public class UpdateTesterUseCase(
 
         if (request.Name is not null)
             tester.Name = request.Name;
+
+        if (request.TotalHoursPlayed is not null)
+            tester.TotalHoursPlayed = request.TotalHoursPlayed.Value;
 
         await dbContext.SaveChangesAsync();
 

